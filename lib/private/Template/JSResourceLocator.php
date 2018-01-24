@@ -33,11 +33,9 @@ class JSResourceLocator extends ResourceLocator {
 	public function doFind($script) {
 		$themeDirectory = $this->theme->getDirectory();
 		$baseDirectory = $this->theme->getBaseDirectory();
-		$webroot = null;
-		if ($baseDirectory === '') {
-			$baseDirectory = $this->serverroot;
-		} else {
-			$webroot = rtrim($this->theme->getWebPath(), $themeDirectory);
+		$webroot = '';
+		if ($baseDirectory !== $this->serverroot) {
+			$webroot = substr($this->theme->getWebPath(), 0, -strlen($themeDirectory));
 		}
 
 		if (strpos($script, '/l10n/') !== false) {
